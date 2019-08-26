@@ -1,0 +1,99 @@
+// CUSTON FONTS
+@font-face {
+  font-family: 'Star Wars';
+  src: url('~assets/fonts/starjedi-webfont.woff2') format('woff2'),
+    url('~assets/fonts/starjedi-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Color system
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(("blue": $blue,
+    "indigo": $indigo,
+    "purple": $purple,
+    "pink": $pink,
+    "red": $red,
+    "orange": $orange,
+    "yellow": $yellow,
+    "green": $green,
+    "teal": $teal,
+    "cyan": $cyan,
+    "white": $white,
+    "gray": $gray-600,
+    "gray-dark": $gray-800),
+  $colors);
+
+$primary: rgba(250, 255, 2, 1) !default; // "Star Wars Yellow"
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+$theme-colors: () !default;
+
+$theme-colors: map-merge(("primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark),
+  $theme-colors);
+
+$btn-outline-primary: rgb(139, 149, 0);
+$green: rgba(43, 171, 14, 1);
+$yellow: rgba(252, 199, 0, 1);
+$orange: rgba(254, 124, 0, 1);
+$red: rgba(174, 15, 11, 1);
+$grey: rgba(0, 0, 0, .5);
+
+$bg-medium: rgba(89, 98, 107, 1);
+$col-medium: rgba(255, 255, 255, 1);
+
+$dark-bg: rgba(52, 58, 64, 1);
+$outline-dark: rgba(0, 0, 0, .25);
+$dark-content: rgba(255, 255, 255, 1);
+
+$light-bg: rgba(255, 255, 255, 1);
+$light-content: rgba(89, 98, 107, 1);
+
+$card-bg: rgba(255, 255, 255, 0.9);
+
+$card-header-bg: rgba(52, 58, 64, .5);
+$card-header-content: rgba(255, 255, 255, .9);
+
+$header-bg-color: $grey;
+$header-bg-input: rgba(0, 0, 0, 0.9);
+$input-placeholder: rgba(255, 255, 255, .5);
+
+$code-bg: rgb(225, 225, 225);

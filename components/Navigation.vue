@@ -1,7 +1,12 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="dark" fixed="top">
     <b-navbar-brand to="/" class="d-flex align-items-center">
-      <h1 class="h4">NUXT.JS – Star Wars Films</h1>
+      <img
+        id="header-logo"
+        src="~assets/imgs/SW_opening_crawl_logo.svg"
+        alt="NUXT.JS – Star Wars Films"
+      />
+      <h1 class="h4">Star Wars Films</h1>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -18,3 +23,11 @@
     </b-collapse>
   </b-navbar>
 </template>
+
+<script>
+export default {
+  components: {}
+}
+</script>
+
+<style></style>
