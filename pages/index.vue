@@ -12,8 +12,30 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import axios from '~/plugins/axios'
+
 export default {
-  components: {}
+  components: {},
+  data() {
+    return {}
+  },
+  computed: {
+    filmsOrderedByID: function() {
+      const filmsOrdered = _.orderBy(this.films, 'episode_id')
+      return filmsOrdered
+    }
+  },
+  asyncData() {
+    return axios.get('films/').then(res => ({
+      films: res.data.results
+    }))
+  },
+  /* eslint-disable */
+  created() {
+    console.log(_.isEmpty() ? 'Lodash is available here!' : 'Uh oh..')
+  }
+  /* eslint-enable */
 }
 </script>
 
