@@ -8,6 +8,32 @@
         – A Nuxt.js project –
       </h2>
     </div>
+    <b-card-group deck>
+      <b-card v-for="item in filmsOrderedByID" :key="item.episode_id">
+        <b-list-group>
+          <b-list-group-item>
+            <b-card-title>
+              {{ item.title }}
+            </b-card-title>
+          </b-list-group-item>
+          <b-list-group-item>
+            {{ item.opening_crawl }}
+          </b-list-group-item>
+          <b-list-group-item>ID: {{ item.episode_id }}</b-list-group-item>
+          <b-list-group-item>
+            <strong>Director:</strong> {{ item.director }}
+          </b-list-group-item>
+          <b-list-group-item>
+            <strong>Producer:</strong> {{ item.producer }}
+          </b-list-group-item>
+          <b-list-group-item>
+            <strong>Release Date:</strong> {{ item.release_date }}
+          </b-list-group-item>
+        </b-list-group>
+
+        <p class="card-text mt-2"></p>
+      </b-card>
+    </b-card-group>
   </section>
 </template>
 

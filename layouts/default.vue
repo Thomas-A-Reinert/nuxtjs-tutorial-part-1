@@ -65,6 +65,18 @@ body {
   font-size: 2.5rem;
 }
 
+.card {
+  background-color: $gray-900;
+
+  .card-title {
+    font-family: "Star Wars", Arial, Helvetica, sans-serif;
+  }
+}
+
+.list-group-item {
+  background-color: $black;
+}
+
 .nuxt-link-exact-active {
   color: $primary !important;
 }
