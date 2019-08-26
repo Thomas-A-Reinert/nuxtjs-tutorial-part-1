@@ -66,15 +66,35 @@ body {
 }
 
 .card {
+  /* Default width for mobile-first */
+  min-width: 100%;
   background-color: $gray-900;
 
   .card-title {
     font-family: "Star Wars", Arial, Helvetica, sans-serif;
   }
+
+  .opening-crawl {
+    transform-origin: 50% 100%;
+    transform: perspective(250px) rotateX(20deg);
+  }
+}
+
+@media (min-width: 768px) {
+  /* Width for large Smartphones and higher */
+  .card {
+    min-width: calc(50% - 30px);
+  }
 }
 
 .list-group-item {
   background-color: $black;
+  border: none !important;
+  border-bottom: 2px solid transparentize($white, 0) !important;
+
+  &:last-child {
+    border: none !important;
+  }
 }
 
 .nuxt-link-exact-active {

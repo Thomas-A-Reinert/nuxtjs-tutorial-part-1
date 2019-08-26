@@ -12,12 +12,14 @@
       <b-card v-for="item in filmsOrderedByID" :key="item.episode_id">
         <b-list-group>
           <b-list-group-item>
-            <b-card-title>
+            <b-card-title class="text-primary">
               {{ item.title }}
             </b-card-title>
           </b-list-group-item>
           <b-list-group-item>
-            {{ item.opening_crawl }}
+            <div class="opening-crawl text-primary">
+              {{ item.opening_crawl }}
+            </div>
           </b-list-group-item>
           <b-list-group-item>ID: {{ item.episode_id }}</b-list-group-item>
           <b-list-group-item>
