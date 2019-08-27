@@ -67,7 +67,7 @@ export default {
         films: response.data.results
       }))
       .catch(e => {
-        // Handle Errors, generate 404 Code with Message
+        // Handle Errors, generate 404 Status with Message
         error({
           statusCode: 404,
           message: 'Endpoint could not be resolved'
