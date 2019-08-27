@@ -61,7 +61,7 @@ export default {
   // Axios with Async/Await
   async asyncData({ error }) {
     const films = await axios
-      .get('filmsx/')
+      .get('films/')
       .then(response => ({
         // Handle Success
         films: response.data.results
