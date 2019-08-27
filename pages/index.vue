@@ -53,21 +53,27 @@ export default {
     return {}
   },
   computed: {
-    filmsOrderedByID: () => {
+    filmsOrderedByID: function() {
       const filmsOrdered = _.orderBy(this.films, 'episode_id')
       return filmsOrdered
     }
   },
-  asyncData() {
-    return axios.get('films/').then(res => ({
-      films: res.data.results
-    }))
-  },
-  /* eslint-disable */
-  created() {
-    console.log(_.isEmpty() ? 'Lodash is available here!' : 'Uh oh..')
+  // Axios with Async/Await
+  async asyncData({ error }) {
+    const films = await axios
+      .get('films/')
+      .then(response => ({
+        // handle success
+        films: response.data.results
+      }))
+      .catch(e => {
+        error({
+          statusCode: 404,
+          message: 'Endpoint could not be resolved'
+        })
+      })
+    return films
   }
-  /* eslint-enable */
 }
 </script>
 
