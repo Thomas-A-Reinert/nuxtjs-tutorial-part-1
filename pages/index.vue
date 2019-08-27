@@ -61,12 +61,13 @@ export default {
   // Axios with Async/Await
   async asyncData({ error }) {
     const films = await axios
-      .get('films/')
+      .get('filmsx/')
       .then(response => ({
-        // handle success
+        // Handle Success
         films: response.data.results
       }))
       .catch(e => {
+        // Handle Errors, generate 404 Code with Message
         error({
           statusCode: 404,
           message: 'Endpoint could not be resolved'
