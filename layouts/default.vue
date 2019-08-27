@@ -30,6 +30,7 @@ body {
   color: $light;
 }
 
+/* Navigation Styling */
 .navbar-brand {
 
   #header-logo {
@@ -43,12 +44,14 @@ body {
   }
 }
 
+/* Containers Styling */
 .container {
   min-height: calc(100vh - 3rem - (1.25rem + 3.25rem + 1rem) -200px;
   /* Berechnung: Viewport-Höhe - <Footer> - <Navigation> - <body>-Padding */
   text-align: center;
 }
 
+/* Headline Styling */
 .title {
   font-family: "Star Wars", Arial, Helvetica, sans-serif;
   font-weight: normal;
@@ -65,6 +68,7 @@ body {
   font-size: 2.5rem;
 }
 
+/* Card Styling */
 .card {
   /* Default width for mobile-first */
   min-width: 100%;
@@ -87,20 +91,27 @@ body {
   }
 }
 
+.list-group {
+  border: 1px solid transparentize($white, 0.5);
+  box-shadow: 8px 8px 5px transparentize($black, 0.5);
+}
+
 .list-group-item {
   background-color: $black;
   border: none !important;
-  border-bottom: 2px solid transparentize($white, 0) !important;
+  border-bottom: 2px solid transparentize($white, 0.5) !important;
 
   &:last-child {
     border: none !important;
   }
 }
 
+/* Link Styling */
 .nuxt-link-exact-active {
   color: $primary !important;
 }
 
+/* Transition Styling */
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.5s;
