@@ -11,24 +11,18 @@
     <div class="sorting mb-3">
       <h3>Sort by:</h3>
       <b-button-group>
-        <b-button @click="sort('episode_id')">Episode</b-button>
-        <b-button @click="sort('release_date')">Releasedate</b-button>
-        <b-button @click="sort('name')">Name</b-button>
-        <b-button @click="sort('director')">Director</b-button>
-        <b-button @click="sort('producer')">
-          Producer <fa v-if="sort" :icon="['fas', 'sort-amount-down']" />
-        </b-button>
+        <b-button @click="sortByTitle = !sortByTitle">Title</b-button>
+        <b-button @click="sortByEpisode = !sortByEpisode">Episode</b-button>
+        <b-button @click="sortByDate = !sortByDate">Releasedate</b-button>
+        <b-button @click="sortByDirector = !sortByDirector">Director</b-button>
+        <b-button @click="sortByProducer = !sortByProducer">Producer</b-button>
       </b-button-group>
     </div>
     <b-alert v-if="debug" show variant="warning" class="debug mb-3">
       <strong>Debug:</strong>
-      <div>sort={{ currentSort }}</div>
-      <div>dir={{ currentSortDir }}</div>
-      <div>pageSize={{ pageSize }}</div>
-      <div>page={{ currentPage }}</div>
     </b-alert>
     <b-card-group deck>
-      <b-card v-for="item in sortedFilms" :key="item.episode_id" class="mb-5">
+      <b-card v-for="item in listView" :key="item.episode_id" class="mb-5">
         <b-list-group>
           <b-list-group-item>
             <b-card-title class="text-primary">
@@ -44,19 +38,17 @@
             <strong>Episode:</strong> {{ item.episode_id }}
           </b-list-group-item>
           <b-list-group-item>
+            <strong>Release Date:</strong> {{ item.release_date }}
+          </b-list-group-item>
+          <b-list-group-item>
             <strong>Director:</strong> {{ item.director }}
           </b-list-group-item>
           <b-list-group-item>
             <strong>Producer:</strong> {{ item.producer }}
           </b-list-group-item>
-          <b-list-group-item>
-            <strong>Release Date:</strong> {{ item.release_date }}
-          </b-list-group-item>
         </b-list-group>
       </b-card>
     </b-card-group>
-    <b-button @click="prevPage">Previous Page</b-button>
-    <b-button @click="nextPage">Next Page</b-button>
   </section>
 </template>
 
@@ -69,39 +61,55 @@ export default {
   data() {
     return {
       films: {},
-      currentSort: 'episode_id',
-      currentSortDir: 'asc',
-      pageSize: 4,
-      currentPage: 1,
+      // currentSort: 'episode_id',
+      // currentSortDir: 'asc',
+      // pageSize: 4,
+      // currentPage: 1,
       debug: true,
-      sortProducerUp: '',
-      sortProducerDown: ''
+      // Testing
+      filterByName: {},
+      filterByStatus: {},
+      sortByTitle: false,
+      sortByEpisode: false,
+      sortByDate: false,
+      sortByDirector: false,
+      sortByProducer: false
     }
   },
   computed: {
-    // filmsOrderedByID: function() {
-    //   const filmsOrdered = _.orderBy(this.films, 'episode_id')
-    //   return filmsOrdered
-    // },
-    sortedFilms: function() {
-      // 73:14  error  Unexpected side effect in "sortedFilms" computed property  vue/no-side-effects-in-computed-properties
-      // Because: mutates the ORIGINAL array!
-      // solution: slice doesnt throw an error, because it builds a copy of it. Noteworthy.
-      // return this.films.sort((a, b) => {
-      return this.films
-        .slice()
-        .sort((a, b) => {
-          let modifier = 1
-          if (this.currentSortDir === 'desc') modifier = -1
-          if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier
-          if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier
-          return 0
+    listView: function() {
+      const self = this
+      if (self.filterByName.length > 0 || self.filterByStatus.length > 0) {
+        return self.films.filter(function(item) {
+          return self.sortByEpisode
+          // self.filterByName.indexOf(item.name) > -1 ||
+          //   self.filterByStatus.indexOf(item.status) > -1
         })
-        .filter((row, index) => {
-          const start = (this.currentPage - 1) * this.pageSize
-          const end = this.currentPage * this.pageSize
-          if (index >= start && index < end) return true
-        })
+      } else {
+        return self.sortByEpisode
+      }
+    }
+  },
+  watch: {
+    sortByTitle: function(val) {
+      const self = this
+      self.listView = self.sortBy(self.listView, 'title', val)
+    },
+    sortByEpisode: function(val) {
+      const self = this
+      self.listView = self.sortBy(self.listView, 'episode_id', val)
+    },
+    sortByDate: function(val) {
+      const self = this
+      self.listView = self.sortBy(self.listView, 'release_date', val)
+    },
+    sortByDirector: function(val) {
+      const self = this
+      self.listView = self.sortBy(self.listView, 'director', val)
+    },
+    sortByProducer: function(val) {
+      const self = this
+      self.listView = self.sortBy(self.listView, 'producer', val)
     }
   },
   // Axios with Async/Await
@@ -122,19 +130,37 @@ export default {
     return films
   },
   methods: {
-    sort: function(sort) {
-      // if s == current sort, reverse
-      if (sort === this.currentSort) {
-        this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc'
-      }
-      this.currentSort = sort
-    },
-    nextPage: function() {
-      if (this.currentPage * this.pageSize < this.films.length)
-        this.currentPage++
-    },
-    prevPage: function() {
-      if (this.currentPage > 1) this.currentPage--
+    sortBy: function(array, param, reverse) {
+      let filterA, filterB
+      return array.sort(function(a, b) {
+        switch (param) {
+          case 'episode_id':
+            filterA = a.episode_id
+            filterB = b.episode_id
+            break
+          case 'title':
+            filterA = a.title
+            filterB = b.title
+            break
+          case 'release_date':
+            filterA = a.release_date
+            filterB = b.release_date
+            break
+          case 'director':
+            filterA = a.director
+            filterB = b.director
+            break
+          case 'producer':
+            filterA = a.producer
+            filterB = b.producer
+            break
+        }
+        if (reverse) {
+          return filterA > filterB ? 1 : -1
+        } else {
+          return filterA < filterB ? 1 : -1
+        }
+      })
     }
   }
 }
