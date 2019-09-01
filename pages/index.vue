@@ -53,7 +53,7 @@
 </template>
 
 <script>
-// import _ from 'lodash'
+import _ from 'lodash'
 import axios from '~/plugins/axios'
 
 export default {
@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       films: {},
+      // item: {},
       // currentSort: 'episode_id',
       // currentSortDir: 'asc',
       // pageSize: 4,
@@ -77,17 +78,21 @@ export default {
     }
   },
   computed: {
+    // listView: function() {
+    //   const self = this
+    //   if (self.filterByName.length > 0 || self.filterByStatus.length > 0) {
+    //     return self.films.filter(function(item) {
+    //       return self.sortByEpisode
+    //       // self.filterByName.indexOf(item.name) > -1 ||
+    //       //   self.filterByStatus.indexOf(item.status) > -1
+    //     })
+    //   } else {
+    //     return self.sortByEpisode
+    //   }
+    // },
     listView: function() {
-      const self = this
-      if (self.filterByName.length > 0 || self.filterByStatus.length > 0) {
-        return self.films.filter(function(item) {
-          return self.sortByEpisode
-          // self.filterByName.indexOf(item.name) > -1 ||
-          //   self.filterByStatus.indexOf(item.status) > -1
-        })
-      } else {
-        return self.sortByEpisode
-      }
+      const listView = _.orderBy(this.films, 'episode_id')
+      return listView
     }
   },
   watch: {
